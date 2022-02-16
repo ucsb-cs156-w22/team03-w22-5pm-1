@@ -18,6 +18,8 @@ import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
+import CollegiateSubredditCreatePage from "main/pages/CollegiateSubreddit/CollegiateSubredditCreatePage";
+import CollegiateSubredditIndexPage from "main/pages/CollegiateSubreddit/CollegiateSubredditIndexPage";
 
 
 function App() {
@@ -70,6 +72,21 @@ function App() {
             <>
               <Route exact path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
               <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
+            </>
+          )
+        }
+
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/collegiatesubreddits/list " element={<CollegiateSubredditIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/collegiatesubreddits/create" element={<CollegiateSubredditCreatePage />} />
             </>
           )
         }
