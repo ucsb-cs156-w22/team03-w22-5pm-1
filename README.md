@@ -1,5 +1,9 @@
 # demo-spring-react-example-v2: dsre-v2
 
+Heroku deployments:
+* Production: <https://w22-5pm-1-team03.herokuapp.com>
+* QA: <https://w22-5pm-1-team03-qa.herokuapp.com>
+
 Storybook is here:
 * Production: <https://ucsb-cs156-w22.github.io/STARTER-team03-docs/>
 * QA:  <https://ucsb-cs156-w22.github.io/STARTER-team03-docs-qa/>
