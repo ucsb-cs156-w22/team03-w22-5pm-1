@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.oauth2.sdk.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,7 +41,8 @@ public class EarthquakeFeatureController extends ApiController{
     @Autowired
     ObjectMapper mapper;
 
-    @ApiOperation(value = "Get earthquakes a certain distance from UCSB's Storke Tower", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
+    @ApiOperation(value = "Post earthquakes a certain distance from UCSB's Storke Tower to the MongoDB", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/retrieve")
     public List<Feature> postEarthquakeFeature(
         @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
@@ -56,6 +58,14 @@ public class EarthquakeFeatureController extends ApiController{
         List<Feature> storedFeatures = earthquakesCollection.saveAll(features);
 
         return storedFeatures;
+    }
+
+    
+    @ApiOperation(value = "Purge all Earthquake feature objects in the MongoDB collection", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/purge")
+    public void purgeEarthquakeFeatures() throws JsonProcessingException {      
+        earthquakesCollection.deleteAll();
     }
 
 }
