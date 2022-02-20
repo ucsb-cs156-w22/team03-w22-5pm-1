@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -13,11 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Feature {
-    @Id
-    private String _id;
-    private String id;
+public class FeatureCollection {
     private String type;
-    private FeatureProperties properties;
-    private FeatureGeometry geometry;
+    private EarthquakeMetadata metadata;
+    private List<Feature> features;
+    private List<Double> bbox;
 }
