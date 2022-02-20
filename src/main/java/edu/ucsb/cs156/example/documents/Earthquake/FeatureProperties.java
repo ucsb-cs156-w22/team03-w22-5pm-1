@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FeatureProperties {
     
-    private int mag;
+    private Double mag;
     private String place;
-    private int time;
+    private Double time;
     private String url;
     private String detail;
     private int felt;

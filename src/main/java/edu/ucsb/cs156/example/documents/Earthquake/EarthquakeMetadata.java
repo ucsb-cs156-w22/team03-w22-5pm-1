@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class EarthquakeMetadata {
-    private int generated;
+    private Double generated;
     private String url;
     private String title;
     private int status;
