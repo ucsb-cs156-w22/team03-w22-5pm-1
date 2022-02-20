@@ -30,6 +30,15 @@ jest.mock('react-router-dom', () => {
 
 describe("UCSBSubjectsCreatePage tests", () => {
 
+    const axiosMock =new AxiosMockAdapter(axios);
+
+    beforeEach(() => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    });
+
     test("renders without crashing", () => {
         const queryClient = new QueryClient();
         render(
