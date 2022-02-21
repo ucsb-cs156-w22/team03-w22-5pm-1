@@ -41,7 +41,7 @@ public class EarthquakeFeatureController extends ApiController{
     @Autowired
     ObjectMapper mapper;
 
-    @ApiOperation(value = "Post earthquakes a certain distance from UCSB's Storke Tower to the MongoDB", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
+    @ApiOperation(value = "Post earthquakes a certain distance from UCSB's Storke Tower to MongoDB", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/retrieve")
     public List<Feature> postEarthquakeFeature(
@@ -50,17 +50,13 @@ public class EarthquakeFeatureController extends ApiController{
     ) throws JsonProcessingException {
         log.info("getEarthquakes: distance={} minMag={}", distance, minMag);
         String result = earthquakeQueryService.getJSON(distance, minMag);
-        
+
         FeatureCollection collection = mapper.readValue(result, FeatureCollection.class);
-
         List<Feature> features = collection.getFeatures();
-
         List<Feature> storedFeatures = earthquakesCollection.saveAll(features);
-
         return storedFeatures;
     }
 
-    
     @ApiOperation(value = "Purge all Earthquake feature objects in the MongoDB collection", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/purge")
