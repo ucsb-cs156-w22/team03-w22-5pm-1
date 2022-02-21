@@ -1,11 +1,10 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UCSBSubjectForm from "main/components/UCSBSubjects/UCSBSubjectForm";
-import { Navigate } from 'react-router-dom'
+import { Navigate } from "react-router-dom";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBSubjectsCreatePage() {
-
   const objectToAxiosParams = (ucsbSubject) => ({
     url: "/api/UCSBSubjects/post",
     method: "POST",
@@ -15,29 +14,31 @@ export default function UCSBSubjectsCreatePage() {
       deptCode: ucsbSubject.deptCode,
       collegeCode: ucsbSubject.collegeCode,
       relatedDeptCode: ucsbSubject.relatedDeptCode,
-      inactive: ucsbSubject.inactive
-    }
+      inactive: ucsbSubject.inactive,
+    },
   });
 
   const onSuccess = (ucsbSubject) => {
-    toast(`New ucsbSubject Created - id: ${ucsbSubject.id} Subject Translation: ${ucsbSubject.subjectTranslation}`);
-  }
+    toast(
+      `New ucsbSubject Created - id: ${ucsbSubject.id} Subject Translation: ${ucsbSubject.subjectTranslation}`
+    );
+  };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
-     { onSuccess }, 
-     // Stryker disable next-line all : hard to set up test for caching
-     ["/api/UCSBSubjects/all"]
-     );
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/UCSBSubjects/all"]
+  );
 
-  const { isSuccess } = mutation
+  const { isSuccess } = mutation;
 
   const onSubmit = async (data) => {
     mutation.mutate(data);
-  }
+  };
 
   if (isSuccess) {
-    return <Navigate to="/ucsbsubjects/list" />
+    return <Navigate to="/ucsbsubjects/list" />;
   }
 
   return (
@@ -46,8 +47,7 @@ export default function UCSBSubjectsCreatePage() {
         <h1>Create New UCSBSubject</h1>
 
         <UCSBSubjectForm submitAction={onSubmit} />
-
       </div>
     </BasicLayout>
-  )
+  );
 }
