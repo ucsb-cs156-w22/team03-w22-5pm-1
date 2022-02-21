@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FeatureProperties {
-    
-    private int mag;
+public class FeatureProperties { 
+    private Double mag;
     private String place;
-    private int time;
+    private Double time;
     private String url;
     private String detail;
     private int felt;

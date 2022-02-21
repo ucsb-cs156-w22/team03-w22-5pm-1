@@ -4,6 +4,10 @@
 
 [![codecov](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-1/branch/main/graph/badge.svg?token=0yOuPrkHP3)](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-1)
 
+Heroku deployments:
+* Production: <https://w22-5pm-1-team03.herokuapp.com>
+* QA: <https://w22-5pm-1-team03-qa.herokuapp.com>
+
 Storybook is here:
 * Production: <https://ucsb-cs156-w22.github.io/team03-w22-5pm-1-docs/>
 * QA:  <https://ucsb-cs156-w22.github.io/team03-w22-5pm-1-docs-qa/>
