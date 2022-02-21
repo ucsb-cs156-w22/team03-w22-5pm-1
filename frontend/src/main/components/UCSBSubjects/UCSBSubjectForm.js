@@ -112,6 +112,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
                 <Form.Check
                     data-testid="UCSBSubjectForm-inactive"
                     id="inactive"
+                    {...register("inactive")}
                 />
             </Form.Group>
 
