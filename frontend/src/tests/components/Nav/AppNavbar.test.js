@@ -213,7 +213,7 @@ describe("AppNavbar tests", () => {
 
     });
 
-    test("renders the ucsbsubjects menu correctly for a user", async () => {
+    test("renders the CollegiateSubreddit menu correctly for a user", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -228,16 +228,16 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByTestId("appnavbar-ucsbsubjects-dropdown")).toBeInTheDocument());
-        const dropdown = getByTestId("appnavbar-ucsbsubjects-dropdown");
+        await waitFor(() => expect(getByTestId("appnavbar-collegiatesubreddits-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-collegiatesubreddits-dropdown");
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await waitFor( () => expect(getByTestId("appnavbar-ucsbsubjects-list")).toBeInTheDocument() );
+        await waitFor( () => expect(getByTestId("appnavbar-collegiatesubreddits-list")).toBeInTheDocument() );
 
     });
 
-    test("renders the ucsbsubjects menu correctly for an admin", async () => {
+    test("renders the CollegiateSubreddit menu correctly for an admin", async () => {
 
         const currentUser = currentUserFixtures.adminUser;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -252,12 +252,12 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByTestId("appnavbar-ucsbsubjects-dropdown")).toBeInTheDocument());
-        const dropdown = getByTestId("appnavbar-ucsbsubjects-dropdown");
+        await waitFor(() => expect(getByTestId("appnavbar-collegiatesubreddits-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-collegiatesubreddits-dropdown");
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await waitFor( () => expect(getByTestId(/appnavbar-ucsbsubjects-create/)).toBeInTheDocument() );
+        await waitFor( () => expect(getByTestId(/appnavbar-collegiatesubreddits-create/)).toBeInTheDocument() );
 
     });
 
