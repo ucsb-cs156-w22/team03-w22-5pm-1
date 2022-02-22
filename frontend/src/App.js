@@ -17,12 +17,15 @@ import UCSBSubjectsCreatePage from "main/pages/UCSBSubjects/UCSBSubjectsCreatePa
 import StudentsIndexPage from "main/pages/Students/StudentsIndexPage";
 import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 
+import CollegiateSubredditsIndexPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsIndexPage";
+import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/CollegiateSubredditsCreatePage";
+import CollegiateSubredditsEditPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsEditPage";
+
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
 import EarthquakeIndexPage from "main/pages/Earthquakes/EarthquakeIndexPage";
 import EarthquakeCreatePage from "main/pages/Earthquakes/EarthquakeCreatePage";
-
 
 function App() {
 
@@ -107,6 +110,23 @@ function App() {
           )
         }
         
+
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/collegiatesubreddits/list" element={<CollegiateSubredditsIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/collegiatesubreddits/edit/:id" element={<CollegiateSubredditsEditPage />} />  
+              <Route exact path="/collegiatesubreddits/create" element={<CollegiateSubredditsCreatePage />} />
+            </>
+          )
+        }
+
 
       </Routes>
     </BrowserRouter>

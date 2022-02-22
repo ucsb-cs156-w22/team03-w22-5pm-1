@@ -117,7 +117,7 @@ describe("UserTable tests", () => {
     fireEvent.click(editButton);
     fireEvent.click(deleteButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/collegiateSubreddits/edit/1'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/collegiatesubreddits/edit/1'));
   });
 
 });
