@@ -50,55 +50,55 @@ describe("CollegiateSubredditsCreatePage tests", () => {
         );
     });
 
-    // test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
+    test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
 
-    //     const queryClient = new QueryClient();
-    //     const ucsbDate = {
-    //         id: 17,
-    //         quarterYYYYQField: 20221,
-    //         name: "Groundhog Day",
-    //         localDateTime: "2022-02-02T00:00"
-    //     };
+        const queryClient = new QueryClient();
+        const ucsbDate = {
+            id: 17,
+            name: "UCSB",
+            location: "Santa Barbara",
+            subreddit: "ucsb"
+        };
 
-    //     axiosMock.onPost("/api/ucsbdates/post").reply( 202, ucsbDate );
+        axiosMock.onPost("/api/collegiateSubreddits/post").reply( 202, ucsbDate );
 
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <UCSBDatesCreatePage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <CollegiateSubredditsCreatePage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(() => {
-    //         expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument();
-    //     });
+        await waitFor(() => {
+            expect(getByTestId("CollegiateSubredditsForm-name")).toBeInTheDocument();
+        });
 
-    //     const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-    //     const nameField = getByTestId("UCSBDateForm-name");
-    //     const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-    //     const submitButton = getByTestId("UCSBDateForm-submit");
+        const nameField = getByTestId("CollegiateSubredditsForm-name");
+        const locationField = getByTestId("CollegiateSubredditsForm-location");
+        const subredditField = getByTestId("CollegiateSubredditsForm-subreddit");
+        const submitButton = getByTestId("CollegiateSubredditsForm-submit");
 
-    //     fireEvent.change(quarterYYYYQField, { target: { value: '20221' } });
-    //     fireEvent.change(nameField, { target: { value: 'Groundhog Day' } });
-    //     fireEvent.change(localDateTimeField, { target: { value: '2022-02-02T00:00' } });
+        fireEvent.change(nameField, { target: { value: 'UCSB' } });
+        fireEvent.change(locationField, { target: { value: 'Santa Barbara' } });
+        fireEvent.change(subredditField, { target: { value: 'ucsb' } });
 
-    //     expect(submitButton).toBeInTheDocument();
+        expect(submitButton).toBeInTheDocument();
 
-    //     fireEvent.click(submitButton);
+        fireEvent.click(submitButton);
 
-    //     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+        await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-    //     expect(axiosMock.history.post[0].params).toEqual(
-    //         {
-    //         "localDateTime": "2022-02-02T00:00",
-    //         "name": "Groundhog Day",
-    //         "quarterYYYYQ": "20221"
-    //     });
+        expect(axiosMock.history.post[0].params).toEqual(
+            {
+            "name": "UCSB",
+            "location": "Santa Barbara",
+            "subreddit": "ucsb"
+        });
 
-    //     expect(mockToast).toBeCalledWith("New ucsbDate Created - id: 17 name: Groundhog Day");
-    //     expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates/list" });
-    // });
+        expect(mockToast).toBeCalledWith("New CollegiateSubreddit Created - id: 17 name: UCSB");
+        expect(mockNavigate).toBeCalledWith({ "to": "/collegiatesubreddits/list" });
+    });
 
 
 });
