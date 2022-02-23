@@ -55,7 +55,7 @@ export default function UCSBSubjectsTable({ subjects, currentUser }) {
         {
             id: 'inactive',
             Header: 'Inactive',
-            accessor: r => r.inactive ? "yes" : "no",
+            accessor: r => r.inactive.toString(),
         }
     ];
 
