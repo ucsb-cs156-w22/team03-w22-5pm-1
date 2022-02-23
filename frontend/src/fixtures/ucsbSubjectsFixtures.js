@@ -19,7 +19,7 @@ const ucsbSubjectsFixtures = {
         "relatedDeptCode": "",
         "inactive": false
     },
-    threeSubjectCodes: [
+    threeSubjects: [
         {
             "id": 1,
             "subjectCode": "20221",
