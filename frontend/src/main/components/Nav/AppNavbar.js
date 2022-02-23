@@ -67,6 +67,22 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Earthquakes" id="appnavbar-earthquakes-dropdown" data-testid="appnavbar-earthquakes-dropdown" >
+                    <NavDropdown.Item href="/earthquakes/list" data-testid="appnavbar-earthquakes-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/earthquakes/retrieve" data-testid="appnavbar-earthquakes-retrieve">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+
+
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="Students" id="appnavbar-students-dropdown" data-testid="appnavbar-students-dropdown" >
                     <NavDropdown.Item href="/students/list" data-testid="appnavbar-students-list">List</NavDropdown.Item>
                     {
@@ -94,6 +110,37 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
 
+
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="CollegiateSubreddits" id="appnavbar-collegiatesubreddits-dropdown" data-testid="appnavbar-collegiatesubreddits-dropdown" >
+                    <NavDropdown.Item href="/collegiatesubreddits/list" data-testid="appnavbar-collegiatesubreddits-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/collegiatesubreddits/create" data-testid="appnavbar-collegiatesubreddits-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="UCSBSubjects" id="appnavbar-ucsbsubjects-dropdown" data-testid="appnavbar-ucsbsubjects-dropdown" >
+                    <NavDropdown.Item href="/ucsbsubjects/list" data-testid="appnavbar-ucsbsubjects-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/ucsbsubjects/create" data-testid="appnavbar-ucsbsubjects-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+            
             <Nav className="ml-auto">
               {
                 currentUser && currentUser.loggedIn ? (
