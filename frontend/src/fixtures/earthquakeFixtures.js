@@ -1,4 +1,11 @@
 const earthquakeFixtures = {
+    oneEarthquake: {
+          "title": "M 6.9 - 10km ESE of Ojai, CA",
+          "mag": 6.9,
+          "place": "Ojai, CA",
+          "time": 1644571919000,
+          "dist": 1.6,
+    },    
     twoEarthquakes: [
        {
          "title": "M 6.9 - 10km ESE of Ojai, CA",
