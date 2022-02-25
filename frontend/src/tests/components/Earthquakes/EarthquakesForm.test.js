@@ -95,7 +95,7 @@ describe("EarthquakesForm tests", () => {
     ).toBeInTheDocument();
   });
 
-  test("No Error messsages on good input", async () => {
+  test("No Error messages on good input", async () => {
     const mockSubmitAction = jest.fn();
 
     const { getByTestId, queryByText } = render(
