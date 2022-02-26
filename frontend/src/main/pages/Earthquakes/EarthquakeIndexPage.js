@@ -27,18 +27,14 @@ export default function EarthquakeIndexPage() {
     ListProperties.push(prop.properties);
   });
 
-  const objectToAxiosParams = (earthquake) => ({
+  const objectToAxiosParams = (data) => ({
     url: "/api/earthquakes/purge",
     method: "POST",
-    params: {
-      distance: earthquake.dist,
-      minMag: earthquake.minMag,
-    },
   });
 
-  const tstId = React.useRef(null);
-
-  const onSuccess = () => {};
+  const onSuccess = (data) => {
+    toast("Earthquakes Purged");
+  };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
@@ -47,17 +43,9 @@ export default function EarthquakeIndexPage() {
     ["/api/earthquakes/all"]
   );
 
-  const { isSuccess } = mutation;
-
-  const onSubmit = async (data) => {
-    mutation.mutate(data);
+  const onSubmit = async () => {
+    mutation.mutate();
   };
-
-  if (isSuccess) {
-    tstId.current = toast("Earthquakes Purged", {
-      toastId: tstId.current,
-    });
-  }
 
   return (
     <BasicLayout>
