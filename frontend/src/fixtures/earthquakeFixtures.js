@@ -17,6 +17,25 @@ const earthquakeFixtures = {
       time: 1644571919000,
     },
   ],
+  oneEarthquakeResponse:[{
+      _id: 12,
+      id: 12,
+      geometry: {
+        type: "Hello",
+      },
+      type: "Features",
+      properties: {
+        mag: 5.8,
+        place: "Santa Barbara",
+        time: 12342134234,
+        url: "",
+        detail: "",
+        felt: "",
+        type: "Earthquake",
+        title: "M 5.8 - Santa Barbara",
+        status: "Ok",
+      },
+    }],
   twoEarthquakeResponses: [
     {
       _id: 12,
