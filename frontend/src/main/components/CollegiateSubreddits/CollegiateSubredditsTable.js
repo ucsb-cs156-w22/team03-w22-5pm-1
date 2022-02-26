@@ -11,7 +11,7 @@ export default function CollegiateSubredditsTable({ subreddits, currentUser }) {
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/collegiateSubreddits/edit/${cell.row.values.id}`)
+        navigate(`/collegiatesubreddits/edit/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
