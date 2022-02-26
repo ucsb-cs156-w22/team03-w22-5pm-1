@@ -33,9 +33,15 @@ export default function EarthquakeCreatePage() {
   };
 
   if (isSuccess) {
-    tstId.current = toast(mutation.data.length + " Earthquakes Retrieved", {
-      toastId: tstId.current,
-    });
+    if (mutation.data.length == 1) {
+      tstId.current = toast(mutation.data.length + " Earthquake Retrieved", {
+        toastId: tstId.current,
+      });
+    } else {
+      tstId.current = toast(mutation.data.length + " Earthquakes Retrieved", {
+        toastId: tstId.current,
+      });
+    }
     return <Navigate to="/earthquakes/list" />;
   }
 
