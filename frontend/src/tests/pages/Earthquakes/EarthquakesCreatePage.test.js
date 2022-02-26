@@ -90,6 +90,7 @@ describe("EarthquakesCreatePage tests", () => {
         });
 
         expect(mockToast).toBeCalledWith("1 Earthquake Retrieved");
+        expect(mockToast).toHaveBeenCalledTimes(1);
     });
 
 
@@ -131,6 +132,7 @@ describe("EarthquakesCreatePage tests", () => {
         });
 
         expect(mockToast).toBeCalledWith("2 Earthquakes Retrieved");
+        expect(mockToast).toHaveBeenCalledTimes(1);
     });
 
 });

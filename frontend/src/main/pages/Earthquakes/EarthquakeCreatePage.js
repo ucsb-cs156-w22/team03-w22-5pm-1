@@ -17,7 +17,7 @@ export default function EarthquakeCreatePage() {
 
   const tstId = React.useRef(null);
 
-  const onSuccess = () => {};
+  const onSuccess = () => {tstId.current};
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
