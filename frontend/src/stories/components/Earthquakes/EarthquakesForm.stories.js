@@ -1,31 +1,30 @@
-import React from 'react';
+import React from "react";
 
-import EarthquakesForm from "main/components/Earthquakes/EarthquakesForm"
-import { earthquakesFixtures } from 'fixtures/earthquakeFixtures';
+import EarthquakesForm from "main/components/Earthquakes/EarthquakesForm";
+import { earthquakeFixtures } from "fixtures/earthquakeFixtures";
 
 export default {
-    title: 'components/Earthquakes/EarthquakesForm',
-    component: EarthquakesForm
+  title: "components/Earthquakes/EarthquakesForm",
+  component: EarthquakesForm,
 };
 
-
 const Template = (args) => {
-    return (
-        <EarthquakesForm {...args} />
-    )
+  return <EarthquakesForm {...args} />;
 };
 
 export const Default = Template.bind({});
 
 Default.args = {
-    submitText: "Create",
-    submitAction: () => { console.log("Submit was clicked"); }
+  submitText: "Create",
+  submitAction: () => {
+    console.log("Submit was clicked");
+  },
 };
 
 export const Show = Template.bind({});
 
 Show.args = {
-    earthquakesFixtures: earthquakesFixtures.oneEarthquake,
-    submitText: "",
-    submitAction: () => { }
+  earthquakeFixtures: earthquakeFixtures.oneEarthquake,
+  submitText: "",
+  submitAction: () => {},
 };
