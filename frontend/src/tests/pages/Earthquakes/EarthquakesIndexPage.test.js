@@ -105,7 +105,7 @@ describe("EarthquakesIndexPage tests", () => {
                 <MemoryRouter>
                     <EarthquakeIndexPage />
                 </MemoryRouter>
-            </QueryClientProvider>
+            </QueryClientProvider> 
         );
 
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
