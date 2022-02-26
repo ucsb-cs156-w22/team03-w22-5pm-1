@@ -15,9 +15,13 @@ export default function EarthquakeCreatePage() {
     },
   });
 
-  const tstId = React.useRef(null);
-
-  const onSuccess = () => {tstId.current};
+  const onSuccess = (earthquake) => {
+    if (earthquake.length == 1) {
+      toast(earthquake.length + " Earthquake Retrieved");
+    } else {
+      toast(earthquake.length + " Earthquakes Retrieved");
+    }
+  };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
@@ -28,29 +32,20 @@ export default function EarthquakeCreatePage() {
 
   const { isSuccess } = mutation;
 
-  const onSubmit = async (data) => {
-    mutation.mutate(data);
+  const onSubmit = async (dat) => {
+    mutation.mutate(dat);
   };
 
   if (isSuccess) {
-    if (mutation.data.length == 1) {
-      tstId.current = toast(mutation.data.length + " Earthquake Retrieved", {
-        toastId: tstId.current,
-      });
-    } else {
-      tstId.current = toast(mutation.data.length + " Earthquakes Retrieved", {
-        toastId: tstId.current,
-      });
-    }
     return <Navigate to="/earthquakes/list" />;
+  } else {
+    return (
+      <BasicLayout>
+        <div className="pt-2">
+          <h1>Retrieve New Earthquake Entries</h1>
+          <EarthquakesForm submitAction={onSubmit} />
+        </div>
+      </BasicLayout>
+    );
   }
-
-  return (
-    <BasicLayout>
-      <div className="pt-2">
-        <h1>Retrieve New Earthquake Entries</h1>
-        <EarthquakesForm submitAction={onSubmit} />
-      </div>
-    </BasicLayout>
-  );
 }
