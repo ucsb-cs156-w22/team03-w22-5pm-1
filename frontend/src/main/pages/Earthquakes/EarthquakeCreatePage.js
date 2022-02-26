@@ -15,11 +15,9 @@ export default function EarthquakeCreatePage() {
     },
   });
 
-  const toastId = React.useRef(null);
+  const tstId = React.useRef(null);
 
-  const onSuccess = () => {
-    toastId.current = toast("Earthquakes retrieved");
-  };
+  const onSuccess = () => {};
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
@@ -35,8 +33,8 @@ export default function EarthquakeCreatePage() {
   };
 
   if (isSuccess) {
-    toast.update(toastId.current, {
-      render: mutation.data.length + " Earthquakes Retrieved",
+    tstId.current = toast(mutation.data.length + " Earthquakes Retrieved", {
+      toastId: tstId.current,
     });
     return <Navigate to="/earthquakes/list" />;
   }
