@@ -10,72 +10,111 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import { earthquakeFixtures } from "fixtures/earthquakeFixtures";
 import mockConsole from "jest-mock-console";
 
-describe("EarthquakesIndexPage tests", () => {
-  const testId = "EarthquakesTable";
+describe("EarthquakesIndexPage tests", () => {   
+    const axiosMock = new AxiosMockAdapter(axios);
+    const testId = "EarthquakesTable";
 
-  const setupUserOnly = () => {
-    axiosMock.reset();
-    axiosMock.resetHistory();
-    axiosMock
-      .onGet("/api/currentUser")
-      .reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock
-      .onGet("/api/systemInfo")
-      .reply(200, systemInfoFixtures.showingNeither);
-  };
+    const setupUserOnly = () => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    };
 
-  const setupAdminUser = () => {
-    axiosMock.reset();
-    axiosMock.resetHistory();
-    axiosMock
-      .onGet("/api/currentUser")
-      .reply(200, apiCurrentUserFixtures.adminUser);
-    axiosMock
-      .onGet("/api/systemInfo")
-      .reply(200, systemInfoFixtures.showingNeither);
-  };
+    const setupAdminUser = () => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    };
 
-  const axiosMock = new AxiosMockAdapter(axios);
-  axiosMock
-    .onGet("/api/currentUser")
-    .reply(200, apiCurrentUserFixtures.userOnly);
-  axiosMock
-    .onGet("/api/systemInfo")
-    .reply(200, systemInfoFixtures.showingNeither);
+    axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-  const queryClient = new QueryClient();
-  test("renders without crashing", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <EarthquakeIndexPage />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-  });
+    test("renders without crashing for regular user", () => {
+        setupUserOnly();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, []);
 
-  test("renders two earthquakes without crashing for regular user", async () => {
-    setupUserOnly();
-    const queryClient = new QueryClient();
-    axiosMock
-      .onGet("/api/earthquakes/all")
-      .reply(200, earthquakeFixtures.twoEarthquakeResponses);
-
-    const { getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <EarthquakeIndexPage />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-
-    await waitFor(() => {
-      expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent(
-        "5.8"
-      );
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakeIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
-    expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent(
-      "M 2 - Santa Barbara"
-    );
-  });
+
+    test("renders without crashing for admin user", () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, []);
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakeIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+    }); 
+
+    test("renders two earthquake responses without crashing for regular user", async () => {
+        setupUserOnly();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakeFixtures.twoEarthquakeResponses);
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakeIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent("5.8"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("M 2 - Santa Barbara");
+    });
+
+    test("renders two earthquakes responses without crashing for admin user", async () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakeFixtures.twoEarthquakeResponses);
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakeIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent("5.8");});
+        expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("M 2 - Santa Barbara");
+    });
+
+    test("renders empty table when backend unavailable, user only", async () => {
+        setupUserOnly();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").timeout();
+
+        const restoreConsole = mockConsole();
+
+        const { queryByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakeIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
+
+        const errorMessage = console.error.mock.calls[0][0];
+        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
+        restoreConsole();
+
+        expect(queryByTestId(`${testId}-cell-row-0-col-mag`)).not.toBeInTheDocument();
+    });
+
 });
