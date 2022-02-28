@@ -89,6 +89,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
     const deptCodeField = getByTestId("UCSBSubjectForm-deptCode");
     const collegeCodeField = getByTestId("UCSBSubjectForm-collegeCode");
     const relatedDeptCodeField = getByTestId("UCSBSubjectForm-relatedDeptCode");
+    const inactiveField = getByTestId("UCSBSubjectForm-inactive");
     const submitButton = getByTestId("UCSBSubjectForm-submit");
 
     fireEvent.change(subjectCodeField, { target: { value: "42069" } });
@@ -96,6 +97,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
     fireEvent.change(deptCodeField, { target: { value: "69420" } });
     fireEvent.change(collegeCodeField, { target: { value: "06942" } });
     fireEvent.change(relatedDeptCodeField, { target: { value: "20694" } });
+    fireEvent.change(inactiveField, { target: { value: false } });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
@@ -110,7 +112,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
     });
 
     expect(mockToast).toBeCalledWith(
-      "New ucsbSubject Created - id: 17 Subject Translation: 94206"
+      "New UCSBSubject Created - id: 17 Subject Translation: 94206"
     );
     expect(mockNavigate).toBeCalledWith({ to: "/ucsbsubjects/list" });
   });

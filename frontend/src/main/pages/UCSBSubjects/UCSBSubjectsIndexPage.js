@@ -13,7 +13,6 @@ export default function StudentsIndexPage() {
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
       ["/api/UCSBSubjects/all"],
-      // Stryker disable next-line all : don't test internal caching of React Query
       { method: "GET", url: "/api/UCSBSubjects/all" },
       []
     );
