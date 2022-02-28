@@ -1,29 +1,12 @@
-import React from 'react'
-import { useBackend } from 'main/utils/useBackend';
-
+import React from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBSubjectsTable from 'main/components/UCSBSubjects/UCSBSubjectsTable';
-import { useCurrentUser } from 'main/utils/currentUser'
 
-export default function StudentsIndexPage() {
-
-  const currentUser = useCurrentUser();
-
-  const { data: subjects, error: _error, status: _status } =
-    useBackend(
-      // Stryker disable next-line all : don't test internal caching of React Query
-      ["/api/UCSBSubjects/all"],
-      // Stryker disable next-line all : don't test internal caching of React Query
-      { method: "GET", url: "/api/UCSBSubjects/all" },
-      []
-    );
-
+export default function UCSBSubjectsIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Subjects</h1>
-        <UCSBSubjectsTable subjects={subjects} currentUser={currentUser} />
+        <h1>UCSBSubjects</h1>
       </div>
     </BasicLayout>
-  )
+  );
 }
