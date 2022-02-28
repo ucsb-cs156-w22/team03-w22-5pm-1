@@ -1,6 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
-import UCSBSubjectsForm from "main/components/UCSBSubjects/UCSBSubjectsForm";
+import UCSBSubjectsForm from "main/components/UCSBSubjects/UCSBSubjectForm";
 import { Navigate } from 'react-router-dom'
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
