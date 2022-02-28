@@ -39,7 +39,7 @@ export default function UCSBSubjectsEditPage() {
   });
 
   const onSuccess = (ucsbSubject) => {
-    toast(`UCSBSubject Updated - id: ${ucsbSubject.id} code: ${ucsbSubject.subjectCode}`);
+    toast(`UCSBSubject Updated - id: ${ucsbSubject.id} Subject Translation: ${ucsbSubject.subjectTranslation}`);
   }
 
   const mutation = useBackendMutation(

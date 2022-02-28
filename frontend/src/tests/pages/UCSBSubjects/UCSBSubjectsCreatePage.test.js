@@ -112,7 +112,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
     });
 
     expect(mockToast).toBeCalledWith(
-      "New ucsbSubject Created - id: 17 Subject Translation: 94206"
+      "New UCSBSubject Created - id: 17 Subject Translation: 94206"
     );
     expect(mockNavigate).toBeCalledWith({ to: "/ucsbsubjects/list" });
   });

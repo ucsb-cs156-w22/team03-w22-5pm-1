@@ -110,7 +110,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("UCSBSubjectForm-quarterYYYYQ")).toBeInTheDocument());
+            await waitFor(() => expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument());
 
             const idField = getByTestId("UCSBSubjectForm-id");
             const subjectCodeField = getByTestId("UCSBSubjectForm-subjectCode");
@@ -129,7 +129,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("69420");
             expect(collegeCodeField).toHaveValue("06942");
             expect(relatedDeptCodeField).toHaveValue("20694");
-            expect(inactiveField).toHaveValue(false);
+            expect(inactiveField).not.toBeChecked(false);
         });
 
         test("Changes when you click Update", async () => {
@@ -160,7 +160,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("69420");
             expect(collegeCodeField).toHaveValue("06942");
             expect(relatedDeptCodeField).toHaveValue("20694");
-            expect(inactiveField).toHaveValue(false);
+            expect(inactiveField).not.toBeChecked();
 
             expect(submitButton).toBeInTheDocument();
 
@@ -174,14 +174,13 @@ describe("UCSBSubjectsEditPage tests", () => {
 
             await waitFor(() => expect(mockToast).toBeCalled);
             expect(mockToast).toBeCalledWith(
-                "New ucsbSubject Created - id: 17 Subject Translation: 94206"
+                "UCSBSubject Updated - id: 17 Subject Translation: 94206"
             );
             expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                id: 17,
                 subjectCode: "42069",
                 subjectTranslation: "94206",
                 deptCode: "69420",
