@@ -54,7 +54,7 @@ export default function UCSBSubjectsTable({ subjects, currentUser }) {
         },
         {
             Header: 'Inactive',
-            accessor: r => r.inactive ? "yes" : "no",
+            accessor: row => row.inactive, id: "inactive"
         }
     ];
 
