@@ -4,7 +4,7 @@ import UCSBSubjectsTable from "main/components/UCSBSubjects/UCSBSubjectsTable";
 import { ucsbSubjectsFixtures } from 'fixtures/ucsbSubjectsFixtures';
 
 export default {
-    title: 'components/UCSBDates/UCSBSubjectsTable',
+    title: 'components/UCSBSubjects/UCSBSubjectsTable',
     component: UCSBSubjectsTable
 };
 
